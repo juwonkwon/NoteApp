@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Set your brand colors
+$black: #6d7474;
+$light: #fafcff;
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$primary: $black;
+$link: $black;
+
+
+// Update some of Bulma's component variables
+$body-background-color: $black;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-background-color: $black;
+$input-shadow: none;
+
+// Import only what you need from Bulma
+/* global */
+
+html, body{
+    height: 100%;
+    font-size: 13px !important;
+    overflow: hidden !important;
+    font-family: 'Fredoka One';
+}
+*:focus{
+    outline: none;
+}

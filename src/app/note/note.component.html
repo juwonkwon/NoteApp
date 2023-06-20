@@ -1,0 +1,11 @@
+<div #container class="notecontain">
+    <a [routerLink]="link">
+    <div class="note-card">
+        <h1 class="title">
+            {{title}}
+        </h1>
+        <div class="body"><p>{{body}}</p></div>
+    </div>
+</a>
+    <div class="delete" (click)="onDelete()"></div>
+</div>

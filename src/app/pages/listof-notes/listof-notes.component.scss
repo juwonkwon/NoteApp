@@ -1,0 +1,100 @@
+.main{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin:auto;
+    
+    max-width: 1000px;
+}
+.field{
+    display: flex;
+    flex-direction: column;
+    width:50%;
+    margin-top:2%;
+}
+.noteedit{
+    margin-top: 2%;
+    width:50%;
+    opacity:0;
+    transition: opacity 0.3s ease-out;
+}
+p{
+    margin: auto;
+    width: 35%;
+}
+.input{
+    box-shadow: 0px 2px 8px 2px rgba(black, .6);
+    margin-bottom: 2%;
+    transition: box-shadow 0.2s ease-out;
+}
+::placeholder{
+    color: grey;
+    font-size: 100%;
+    font-family: 'Fredoka one';
+}
+.fas{
+    color: black;
+}
+input:focus{
+    outline: none;
+}
+
+.input:hover{
+    box-shadow: 0px 0px 0px 1px rgba(black, .4);
+}
+.notelist{
+    opacity: 0;
+    margin-top: 2%;
+    transition: opacity 0.3s ease-out;
+}
+app-note{
+    margin-bottom: 20px;
+    display:block;
+}
+.buttons{
+    margin-top:2%;
+}
+.circle{
+    display: block;
+    margin:auto;
+    height:40px;
+    width:40px;
+    border:none;
+    border-radius:50%;
+    outline: none;
+    background-color: black;
+    padding:12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: box-shadow 0.2s ease;
+}
+.line-wrapper{
+    transition:0.3s ease;
+}
+.horizontal, .vertical{
+    width: 100%;
+    height: 2px;
+    background-color: grey;
+    pointer-events: none;
+}
+.vertical{
+    position:relative;
+    bottom:2px;
+    transform: rotate(90deg);
+    transition: 0.3s ease;
+}
+.vertical.open{
+    transform: rotate(180deg);
+}
+.circle:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    cursor: pointer;
+}
+.line-wrapper.open{
+    transform: rotate(180deg)
+}
+.noteedit.open{
+    opacity:1;
+}
+.notelist.open{
+    opacity: 1;
+}

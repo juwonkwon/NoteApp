@@ -1,0 +1,34 @@
+<p class="control has-icons-left">
+  <input class="input" type="text" placeholder="Search">
+  <span class="icon is-small is-left">
+    <i class="fas fa-search"></i>
+  </span>
+</p>
+<div class="buttons">
+<button class="circle" (click)="changePlus()">
+  <div class="line-wrapper">
+    <div class="horizontal">
+    </div>
+    <div class="vertical"></div>
+  </div>
+</button>
+</div>
+<div class="main">
+  
+        <div class="field">
+           
+            <div class="notelist">
+              <app-note 
+        *ngFor="let note of notes; index as i" 
+        (delete) = "deleteNote(i)"
+        [@note]
+        [title]="note.title" 
+        [body]="note.body"></app-note>
+              
+    </div>
+    
+</div>
+<div class="noteedit">
+  <app-note-details></app-note-details>
+</div>
+</div>
