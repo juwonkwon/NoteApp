@@ -98,3 +98,7 @@ app-note{
 .notelist.open{
     opacity: 1;
 }
+.containers{
+    display: flex;
+    flex-direction: column;    
+}

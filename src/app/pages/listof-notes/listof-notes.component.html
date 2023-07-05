@@ -1,11 +1,12 @@
-<p class="control has-icons-left">
-  <input class="input" type="text" placeholder="Search">
+ <p class="control has-icons-left">
+  <input #filterInput class="input" type="text" (keyup)="filter($any($event.target).value)" placeholder="Search">
   <span class="icon is-small is-left">
     <i class="fas fa-search"></i>
   </span>
 </p>
 <div class="buttons">
 <button class="circle" (click)="changePlus()">
+  
   <div class="line-wrapper">
     <div class="horizontal">
     </div>
@@ -19,8 +20,8 @@
            
             <div class="notelist">
               <app-note 
-        *ngFor="let note of notes; index as i" 
-        (delete) = "deleteNote(i)"
+        *ngFor="let note of filtered;" 
+        (delete) = "deleteNote(note)"
         [@note]
         [title]="note.title" 
         [body]="note.body"></app-note>

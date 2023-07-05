@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Note } from 'src/app/shared/note.model';
 import { NotesService } from 'src/app/shared/notes.service';
 import { trigger, transition, style, animate, query, stagger} from '@angular/animations'
 
 import {NgForm} from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-notes-list',
@@ -81,16 +82,18 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   ]
 })
 export class NotesListComponent implements OnInit{
-  
+  @ViewChild('filterInput')
+  filterInputElRef!: ElementRef<HTMLInputElement>;
   note!: Note;
   noteId!: number;
   new!: boolean
   notes: Note[] = new Array<Note>();
-  
+  filtered: Note[] = new Array<Note>();
   constructor(private notesService: NotesService, private router: Router, private route: ActivatedRoute){}
 
   ngOnInit(){
     this.notes = this.notesService.getAll();
+    this.filtered = this.notes;
     this.route.params.subscribe((params: Params) => {
       this.note = new Note();
       if(params['id']){
@@ -103,22 +106,45 @@ export class NotesListComponent implements OnInit{
   })
 }
 
-  deleteNote(index: number){
+  deleteNote(note: Note){
+    let index = this.notesService.getId(note)
     this.notesService.delete(index);
+    this.filter(this.filterInputElRef.nativeElement.value)
   }
   filter(query: string){
     query = query.toLowerCase().trim();
     let all: Note[] = new Array<Note>();
     let words: string[] = query.split(' ');
-    words = this.removeDupes(words);
-    
+    words = this.removeDupes(words); 
+    //add all filtered results in to an array
+    words.forEach(word => {
+      let results: Note[] = this.checkRelevant(word);
+      all = [...all, ...results]
+    });
+    let uniqueNotes = this.removeDupes(all);
+    this.filtered = uniqueNotes;
   }
   removeDupes(arr: Array<any>) : Array<any>{
     let unique: Set<any> = new Set<any>();
     arr.forEach(e => unique.add(e));
     return Array.from(unique);
   }
-  onSubmit(form: NgForm){
+
+  checkRelevant(query: string): Array<Note>{
+    query = query.toLowerCase().trim();
+    let relevance = this.notes.filter(note =>{
+      if (note.title && note.title.toLowerCase().includes(query)){
+        return true;
+      }
+      if(note.body &&note.body.toLowerCase().includes(query)){
+        return true;
+      }
+      return false;
+    })
+    return relevance
+  }
+  onSubmit(
+    form: NgForm){
     if(this.new){
       this.notesService.add(form.value);
       form.reset();
@@ -139,5 +165,5 @@ export class NotesListComponent implements OnInit{
     let notes = document.querySelector('.notelist') as HTMLElement;
     notes.classList.toggle('open');
   }
+  
 }
-
